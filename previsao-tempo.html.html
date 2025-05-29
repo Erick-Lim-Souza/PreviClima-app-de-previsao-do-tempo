@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do Tempo - Alertas</title>
+    <!-- Carregar Lucide apenas uma vez -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="location">
+                <i data-lucide="map-pin" class="icon"></i>
+                <span id="location-text">Carregando...</span>
+            </div>
+            <button class="search-btn" onclick="toggleSearch()">
+                <i data-lucide="map-pin" class="icon"></i>
+            </button>
+        </div>
+
+        <!-- Search -->
+        <input type="text" id="search-input" class="search-input hidden" placeholder="Digite o nome da cidade..." onkeypress="handleSearch(event)">
+
+        <!-- Alertas -->
+        <div id="alerts-container">
+            <div class="text-center text-white/70 py-4">Carregando alertas...</div>
+        </div>
+
+        <!-- Clima Atual -->
+        <div class="current-weather">
+            <div class="weather-icon">
+                <i data-lucide="cloud" class="icon-large icon-gray" id="current-weather-icon"></i>
+            </div>
+            <div class="temperature" id="current-temp">--°</div>
+            <div class="condition" id="current-condition">Carregando...</div>
+            <div class="feels-like" id="feels-like">Sensação térmica --°</div>
+        </div>
+
+        <!-- Detalhes -->
+        <div class="details-grid">
+            <div class="detail-card">
+                <div class="detail-header">
+                    <i data-lucide="droplets" class="icon icon-blue"></i>
+                    <span class="detail-label">Umidade</span>
+                </div>
+                <div class="detail-value" id="humidity">--%</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-header">
+                    <i data-lucide="wind" class="icon icon-green"></i>
+                    <span class="detail-label">Vento</span>
+                </div>
+                <div class="detail-value" id="wind">-- km/h</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-header">
+                    <i data-lucide="eye" class="icon icon-purple"></i>
+                    <span class="detail-label">Visibilidade</span>
+                </div>
+                <div class="detail-value" id="visibility">-- km</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-header">
+                    <i data-lucide="sun" class="icon icon-yellow"></i>
+                    <span class="detail-label">Índice UV</span>
+                </div>
+                <div class="detail-value" id="uv-index">--</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('hoje')">Hoje</button>
+            <button class="tab" onclick="switchTab('semana')">7 Dias</button>
+        </div>
+
+        <!-- Previsão -->
+        <div class="forecast" id="forecast-container">
+            <div class="text-center text-white/70 py-4">Carregando previsão...</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <i data-lucide="clock" style="width: 12px; height: 12px;"></i>
+            <span id="last-update">Atualizando...</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
