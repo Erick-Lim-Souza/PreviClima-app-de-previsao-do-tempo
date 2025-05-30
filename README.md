@@ -4,7 +4,7 @@ Um app moderno e responsivo de previsão do tempo, construído com HTML, CSS e J
 
 ## 🚀 Demonstração
 
-![preview do app](https://prevclima.netlify.app/)
+![Demonstração do app](https://prevclima.netlify.app/)
 📍 Localização inicial: Local atual se liberar localização.
 🔎 Permite buscar qualquer cidade do mundo
 
