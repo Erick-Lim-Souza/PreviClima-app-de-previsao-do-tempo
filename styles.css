@@ -1,3 +1,21 @@
+:root {
+            --primary-color: #f39c12;
+            --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --bg-gradient-light: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --card-bg-light: rgba(255, 255, 255, 0.8);
+            --text-color: white;
+            --text-color-light: #2c3e50;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+
+        [data-theme="light"] {
+            --bg-gradient: var(--bg-gradient-light);
+            --card-bg: var(--card-bg-light);
+            --text-color: var(--text-color-light);
+        }
 
         * {
             margin: 0;
@@ -7,289 +25,542 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #7c3aed, #3730a3);
+            background: var(--bg-gradient);
+            color: var(--text-color);
             min-height: 100vh;
-            padding: 1rem;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .container {
-            max-width: 28rem;
+        .weather-container {
+            max-width: 800px;
             margin: 0 auto;
-            color: white;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+            flex: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5rem;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .location {
+        .current-weather {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
+            gap: 15px;
         }
 
-        .search-btn {
+        .weather-icon {
+            width: 60px;
+            height: 60px;
             background: rgba(255, 255, 255, 0.2);
-            border: none;
             border-radius: 50%;
-            padding: 0.5rem;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s ease;
         }
 
-        .search-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .weather-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: 300;
+        }
+
+        .weather-details {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .location-time {
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .location-time h2 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
         }
 
         .search-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            max-width: 300px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
         }
 
         .search-input:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .alert {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            border-left: 4px solid;
-            margin-bottom: 0.75rem;
-        }
-
-        .alert-high {
-            border-color: #ef4444;
-            background: rgba(239, 68, 68, 0.2);
-        }
-
-        .alert-medium {
-            border-color: #eab308;
-            background: rgba(234, 179, 8, 0.2);
-        }
-
-        .alert-content {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .alert-title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .alert-message {
-            font-size: 0.75rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-        }
-
-        .alert-time {
-            font-size: 0.75rem;
-            opacity: 0.7;
-        }
-
-        .current-weather {
             background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 1.5rem;
+            box-shadow: 0 0 0 2px var(--primary-color);
         }
 
-        .weather-icon {
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .temperature {
-            font-size: 3rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-        }
-
-        .condition {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1rem;
-        }
-
-        .feels-like {
-            font-size: 0.875rem;
+        .search-input::placeholder {
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+        [data-theme="light"] .search-input {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-color-light);
         }
 
-        .detail-card {
-            background: rgba(255, 255, 255, 0.15);
+        [data-theme="light"] .search-input::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-top: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
             backdrop-filter: blur(10px);
-            border-radius: 0.75rem;
-            padding: 1rem;
+            animation: slideDown 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .detail-header {
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .settings-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.3s ease;
         }
 
-        .detail-label {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-        }
-
-        .detail-value {
-            font-size: 1.25rem;
-            font-weight: 600;
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
         }
 
         .tabs {
             display: flex;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 0.75rem;
-            padding: 0.25rem;
-            margin-bottom: 1rem;
+            gap: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
         .tab {
-            flex: 1;
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: 0.5rem;
+            padding: 10px 0;
             cursor: pointer;
-            font-size: 0.875rem;
             font-weight: 500;
-            transition: all 0.3s;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
         }
 
         .tab.active {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
+            opacity: 1;
+            border-bottom-color: var(--primary-color);
         }
 
-        .tab:hover {
-            color: white;
+        .hourly-chart {
+            margin-bottom: 30px;
+            position: relative;
+            height: 120px;
         }
 
-        .forecast {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 0.75rem;
-            padding: 1rem;
+        .chart-container {
+            position: relative;
+            height: 80px;
+            margin: 20px 0;
+        }
+
+        .temperature-line {
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .temperature-point {
+            fill: var(--primary-color);
+            r: 3;
+        }
+
+        .time-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .forecast-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .forecast-item:last-child {
-            border-bottom: none;
-        }
-
-        .forecast-time {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-            width: 3rem;
-        }
-
-        .forecast-temp {
-            color: white;
-            font-weight: 500;
-        }
-
-        .forecast-temp-range {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .forecast-temp-low {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .forecast-rain {
-            color: #93c5fd;
-            font-size: 0.875rem;
-            width: 3rem;
-            text-align: right;
-        }
-
-        .footer {
             text-align: center;
-            margin-top: 1.5rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 10px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .forecast-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .day {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .forecast-icon {
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        .temps {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .temp-high {
+            color: var(--primary-color);
+        }
+
+        .temp-low {
+            opacity: 0.7;
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .alert.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .alert-title {
+            color: #f39c12;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .alert-location {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .alert-description {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .loading {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 0.25rem;
+            align-items: center;
+            height: 200px;
+            font-size: 18px;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .icon {
-            width: 16px;
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            animation: shake 0.5s ease;
+        }
+
+        .error.warning {
+            background: rgba(243, 156, 18, 0.2);
+            border: 1px solid var(--warning-color);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .settings-panel {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
             height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
         }
 
-        .icon-large {
-            width: 64px;
-            height: 64px;
+        input:checked + .slider {
+            background-color: var(--primary-color);
         }
 
-        .icon-medium {
-            width: 32px;
-            height: 32px;
+        input:checked + .slider:before {
+            transform: translateX(26px);
         }
 
-        .icon-small {
-            width: 20px;
-            height: 20px;
+        .offline-indicator {
+            background: rgba(243, 156, 18, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
         }
 
-        .icon-yellow { color: #fde047; }
-        .icon-gray { color: #d1d5db; }
-        .icon-blue { color: #93c5fd; }
-        .icon-green { color: #86efac; }
-        .icon-purple { color: #c4b5fd; }
-        .icon-red { color: #f87171; }
-        .icon-orange { color: #fb923c; }
-        .icon-white { color: #ffffff; }
-        .icon-black { color: #000000; }
-        .icon-pink { color: #f472b6; }
-        .icon-teal { color: #2dd4bf; }
+        .history-list {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .history-item {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .extended-forecast {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .extended-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .install-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #f1c40f;
+            text-shadow: 0 0 10px #f39c12;
+            animation: flash 1s infinite alternate;
+            padding: 10px;
+        }
+
+        @keyframes flash {
+            from { 
+                text-shadow: 0 0 5px #f39c12; 
+                opacity: 0.8;
+            }
+            to { 
+                text-shadow: 0 0 20px #f1c40f, 0 0 30px #fff; 
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .weather-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .forecast-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .extended-forecast {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            footer {
+                font-size: 0.8rem;
+                padding: 5px;
+            }
+
+            .install-btn {
+                margin: 10px 0;
+                width: 100%;
+            }
+        }
